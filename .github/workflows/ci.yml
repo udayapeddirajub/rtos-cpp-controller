@@ -12,3 +12,4 @@ jobs:
           make -j2
       - name: Run
         run: timeout 10s ./rtos_demo || [[ $? -eq 124 ]]
+        working-directory: build
