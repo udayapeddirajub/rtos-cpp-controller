@@ -17,10 +17,9 @@
 #define vTaskDelay                              1
 #define xTaskCreate                             1
 
-/* Required for POSIX Port */
 #define configUSE_TIMERS                        1
 #define configTIMER_TASK_PRIORITY               ( configMAX_PRIORITIES - 1 )
 #define configTIMER_QUEUE_LENGTH                5
 #define configTIMER_TASK_STACK_DEPTH            configMINIMAL_STACK_SIZE
 
-#endif /* FREERTOS_CONFIG_H */
+#endif

@@ -39,13 +39,10 @@ extern "C" {
 
 int main() {
     std::cout << "Starting RTOS Simulation..." << std::endl;
-
     static Producer p("Producer", 1);
     static Consumer c("Consumer", 1);
-
     p.start();
     c.start();
-
     vTaskStartScheduler();
     return 0;
 }
