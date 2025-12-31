@@ -2,31 +2,36 @@
 #define TASK_HPP
 
 #include <string>
-
-// Simulating FreeRTOS types for the POSIX demo environment
-typedef void* TaskHandle_t;
+#include "FreeRTOS.h"
+#include "task.h"
 
 class Task {
 public:
-    Task(std::string name, int priority)
+    Task(std::string name, UBaseType_t priority)
         : name_(name), priority_(priority) {
     }
 
     virtual ~Task() = default;
 
-    // Logic to start the task
-    void start();
+    void start() {
+        xTaskCreate(taskEntry, name_.c_str(), configMINIMAL_STACK_SIZE, this, priority_, &handle_);
+    }
 
-    // The actual logic implemented by derived classes
     virtual void run() = 0;
 
 protected:
     std::string name_;
-    int priority_;
-    TaskHandle_t handle_;
+    UBaseType_t priority_;
+    TaskHandle_t handle_ = nullptr;
 
-    // Static bridge between C-style RTOS and C++ Object
-    static void taskEntry(void* pvParameters);
+private:
+    static void taskEntry(void* params) {
+        Task* self = static_cast<Task*>(params);
+        if (self) {
+            self->run();
+        }
+        vTaskDelete(NULL);
+    }
 };
 
 #endif
