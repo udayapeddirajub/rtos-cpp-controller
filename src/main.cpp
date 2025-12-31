@@ -1,42 +1,53 @@
 #include <iostream>
+#include "FreeRTOS.h"
+#include "task.h"
 #include "Task.hpp"
 #include "Queue.hpp"
 
-// Define a shared queue for integers (e.g., sensor readings)
-Queue<int> sensorQueue(10);
+// Global Queue for communication
+Queue<int> sensorQueue(5);
 
-class ProducerTask : public Task {
+class Producer : public Task {
 public:
     using Task::Task;
     void run() override {
         int count = 0;
         while (true) {
-            std::cout << "[" << name_ << "] Sending Data: " << ++count << std::endl;
+            std::cout << "[Producer] Sending: " << ++count << std::endl;
             sensorQueue.send(count);
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            vTaskDelay(pdMS_TO_TICKS(1000));
         }
     }
 };
 
-class ConsumerTask : public Task {
+class Consumer : public Task {
 public:
     using Task::Task;
     void run() override {
         while (true) {
-            int data = sensorQueue.receive();
-            std::cout << "\t[" << name_ << "] Processed Data: " << data << std::endl;
+            int val = sensorQueue.receive();
+            std::cout << "\t[Consumer] Received: " << val << std::endl;
         }
     }
 };
 
+// --- RTOS REQUIRED HOOKS ---
+extern "C" {
+    void vApplicationTickHook(void) {}
+    void vApplicationIdleHook(void) {}
+    void vApplicationMallocFailedHook(void) { for (;;); }
+    void vApplicationStackOverflowHook(TaskHandle_t xTask, char* pcTaskName) { (void)pcTaskName; (void)xTask; for (;;); }
+}
+
 int main() {
-    ProducerTask p("Producer", 1);
-    ConsumerTask c("Consumer", 1);
+    std::cout << "Starting RTOS Simulation..." << std::endl;
+
+    static Producer p("Producer", 1);
+    static Consumer c("Consumer", 1);
 
     p.start();
     c.start();
 
-    // Keep main alive
-    while (true) { std::this_thread::sleep_for(std::chrono::seconds(1)); }
+    vTaskStartScheduler();
     return 0;
 }
