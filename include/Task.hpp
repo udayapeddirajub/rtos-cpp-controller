@@ -27,9 +27,7 @@ protected:
 private:
     static void taskEntry(void* params) {
         Task* self = static_cast<Task*>(params);
-        if (self) {
-            self->run();
-        }
+        if (self) self->run();
         vTaskDelete(NULL);
     }
 };

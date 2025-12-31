@@ -1,28 +1,51 @@
-#ifndef QUEUE_HPP
-#define QUEUE_HPP
-
+#include <iostream>
 #include "FreeRTOS.h"
-#include "queue.h"
+#include "task.h"
+#include "Task.hpp"
+#include "Queue.hpp"
 
-template <typename T>
-class Queue {
+Queue<int> sensorQueue(5);
+
+class Producer : public Task {
 public:
-    explicit Queue(UBaseType_t length) {
-        handle_ = xQueueCreate(length, sizeof(T));
+    using Task::Task;
+    void run() override {
+        int count = 0;
+        while (true) {
+            std::cout << "[Producer] Sending: " << ++count << std::endl;
+            sensorQueue.send(count);
+            vTaskDelay(pdMS_TO_TICKS(1000));
+        }
     }
-
-    bool send(const T& item) {
-        return xQueueSend(handle_, &item, portMAX_DELAY) == pdPASS;
-    }
-
-    T receive() {
-        T item;
-        xQueueReceive(handle_, &item, portMAX_DELAY);
-        return item;
-    }
-
-private:
-    QueueHandle_t handle_;
 };
 
-#endif
+class Consumer : public Task {
+public:
+    using Task::Task;
+    void run() override {
+        while (true) {
+            int val = sensorQueue.receive();
+            std::cout << "\t[Consumer] Received: " << val << std::endl;
+        }
+    }
+};
+
+extern "C" {
+    void vApplicationTickHook(void) {}
+    void vApplicationIdleHook(void) {}
+    void vApplicationMallocFailedHook(void) { for (;;); }
+    void vApplicationStackOverflowHook(TaskHandle_t xTask, char* pcTaskName) { (void)pcTaskName; (void)xTask; for (;;); }
+}
+
+int main() {
+    std::cout << "Starting RTOS Simulation..." << std::endl;
+
+    static Producer p("Producer", 1);
+    static Consumer c("Consumer", 1);
+
+    p.start();
+    c.start();
+
+    vTaskStartScheduler();
+    return 0;
+}

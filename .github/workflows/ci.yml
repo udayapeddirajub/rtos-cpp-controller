@@ -5,12 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Tools
-        run: sudo apt-get update && sudo apt-get install -y cmake g++
       - name: Build
         run: |
           mkdir build && cd build
           cmake ..
           make
-      - name: Test (Run for 5 seconds)
+      - name: Run
         run: timeout 5s ./build/rtos_demo || [[ $? -eq 124 ]]
