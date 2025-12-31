@@ -33,16 +33,20 @@ public:
 extern "C" {
     void vApplicationTickHook(void) {}
     void vApplicationIdleHook(void) {}
-    void vApplicationMallocFailedHook(void) { for (;;); }
-    void vApplicationStackOverflowHook(TaskHandle_t xTask, char* pcTaskName) { (void)pcTaskName; (void)xTask; for (;;); }
+    void vApplicationMallocFailedHook(void) { std::cout << "Malloc failed!" << std::endl; for (;;); }
+    void vApplicationStackOverflowHook(TaskHandle_t xTask, char* pcTaskName) {
+        std::cout << "Stack overflow in " << pcTaskName << std::endl;
+        for (;;);
+    }
 }
 
 int main() {
     std::cout << "Starting RTOS Simulation..." << std::endl;
-    static Producer p("Producer", 1);
-    static Consumer c("Consumer", 1);
+    Producer p("Producer", 1);
+    Consumer c("Consumer", 1);
     p.start();
     c.start();
     vTaskStartScheduler();
-    return 0;
+    std::cout << "Scheduler failed to start!" << std::endl;
+    return 1;
 }

@@ -15,7 +15,10 @@ protected:
     TaskHandle_t handle_ = nullptr;
 private:
     static void taskEntry(void* params) {
-        static_cast<Task*>(params)->run();
+        Task* task = static_cast<Task*>(params);
+        while (1) {
+            task->run();
+        }
         vTaskDelete(NULL);
     }
 };

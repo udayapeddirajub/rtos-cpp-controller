@@ -8,7 +8,7 @@ jobs:
       - name: Build
         run: |
           mkdir build && cd build
-          cmake ..
-          make
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+          make -j2
       - name: Run
-        run: timeout 5s ./build/rtos_demo || [[ $? -eq 124 ]]
+        run: timeout 10s ./rtos_demo || [[ $? -eq 124 ]]
