@@ -3,7 +3,11 @@ project(rtos-cpp-controller)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# 1. Download FreeRTOS Kernel automatically
+# 1. Define the Config Target (Matches the Error Message solution)
+add_library(freertos_config INTERFACE)
+target_include_directories(freertos_config INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# 2. Download FreeRTOS Kernel
 include(FetchContent)
 FetchContent_Declare(
   freertos_kernel
@@ -12,15 +16,16 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(freertos_kernel)
 
-# 2. Setup Include Directories
-include_directories(include)
-
-# 3. Create Executable
+# 3. Executable
 add_executable(rtos_demo 
     src/main.cpp 
     src/Task.cpp
 )
 
-# 4. Link FreeRTOS (POSIX port for Linux/GitHub Actions)
-# Note: In a real embedded project, you'd link the ARM/ESP32 port here.
-target_link_libraries(rtos_demo PRIVATE Threads::Threads)
+# 4. Link everything
+# We link the kernel and the posix port for simulation
+target_link_libraries(rtos_demo PRIVATE 
+    freertos_kernel 
+    freertos_config
+    Threads::Threads
+)
