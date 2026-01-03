@@ -1,0 +1,129 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "_deps/freertos_kernel-build",
+					"childIndexes" : 
+					[
+						2,
+						3
+					],
+					"jsonFile" : "directory-_deps.freertos_kernel-build-Debug-251215e7667e1e9875dd.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "out/build/x64-Debug/_deps/freertos_kernel-src",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "_deps/freertos_kernel-build/include",
+					"jsonFile" : "directory-_deps.freertos_kernel-build.include-Debug-0b62419f2f84b5ec2559.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "out/build/x64-Debug/_deps/freertos_kernel-src/include"
+				},
+				{
+					"build" : "_deps/freertos_kernel-build/portable",
+					"jsonFile" : "directory-_deps.freertos_kernel-build.portable-Debug-7d204e335a428180c5d7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "out/build/x64-Debug/_deps/freertos_kernel-src/portable",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					],
+					"name" : "rtos-cpp-controller",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "freertos_kernel::@243c3fa8a8d420dc96bc",
+					"jsonFile" : "target-freertos_kernel-Debug-46ef843227d867ea629c.json",
+					"name" : "freertos_kernel",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "freertos_kernel_port::@f133b841b3374412cf01",
+					"jsonFile" : "target-freertos_kernel_port-Debug-ae456b3bd722d96a6f40.json",
+					"name" : "freertos_kernel_port",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rtos_demo::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rtos_demo-Debug-6eaa48a53e093df082f7.json",
+					"name" : "rtos_demo",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug",
+		"source" : "C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 8
+	}
+}

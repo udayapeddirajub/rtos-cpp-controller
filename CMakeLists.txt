@@ -29,7 +29,6 @@ FetchContent_MakeAvailable(freertos_kernel)
 # Create the executable
 add_executable(rtos_demo 
     src/main.cpp 
-    src/Task.cpp
 )
 
 # Link FreeRTOS kernel and config

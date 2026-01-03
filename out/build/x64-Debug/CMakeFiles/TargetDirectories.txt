@@ -1,0 +1,11 @@
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/CMakeFiles/rtos_demo.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-build/CMakeFiles/freertos_kernel.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-build/CMakeFiles/edit_cache.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-build/CMakeFiles/rebuild_cache.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-build/include/CMakeFiles/edit_cache.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-build/include/CMakeFiles/rebuild_cache.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-build/portable/CMakeFiles/freertos_kernel_port.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-build/portable/CMakeFiles/edit_cache.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-build/portable/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,3 @@
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-subbuild/CMakeFiles/freertos_kernel-populate.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/ubokka/Downloads/Resumes/rtos-cpp-controller/out/build/x64-Debug/_deps/freertos_kernel-subbuild/CMakeFiles/rebuild_cache.dir
