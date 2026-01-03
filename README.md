@@ -1,96 +1,77 @@
-```markdown
-# RTOS C++ Controller - FreeRTOS Producer-Consumer Demo
+# RTOS C++ Controller
 
-[![CI](https://github.com/YOUR_USERNAME/rtos-cpp-controller/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/rtos-cpp-controller/actions/workflows/ci.yml)
+## Introduction
 
-Modern **C++ FreeRTOS** demo using **producer-consumer pattern** with POSIX simulation. Demonstrates task creation, scheduling, and **inter-task communication** via queues.
+The **RTOS C++ Controller** repository provides a flexible, modular framework for building embedded controllers on top of a Real-Time Operating System. The project leverages modern C++ to create reusable components for system control, sensor integration, and actuator management. Its design supports multi-threaded, deterministic operations suitable for embedded and IoT applications.
 
-## 🚀 Features
-- ✅ **C++17** wrappers over FreeRTOS C API
-- ✅ **Header-only** design (no Task.cpp needed)
-- ✅ **Production-grade** CMake + GitHub Actions CI/CD
-- ✅ **POSIX port** for Linux testing
-- ✅ **Error hooks** for stack overflow, memory failure
+## Usage
 
-## 📁 Clean Project Structure
-```
-rtos-cpp-controller/
-├── .github/workflows/ci.yml     # GitHub Actions CI/CD
-├── include/                     
-│   ├── FreeRTOSConfig.h         # FreeRTOS configuration
-│   ├── Task.hpp                # C++ Task base class (header-only)
-│   ├── Queue.hpp               # C++ Queue wrapper (template)
-├── src/
-│   └── main.cpp                # Producer + Consumer demo
-├── CMakeLists.txt              # CMake build system
-└── README.md
-```
+This framework enables developers to implement custom control logic by extending core classes and integrating with RTOS services. Developers can add sensor modules, define actuator behaviors, and manage control loops with precise timing. The repository includes example applications, making it easy to get started with new projects or integrate with existing systems.
 
-## 🎯 How It Works
+## Features
 
-```
-Producer Task    → sensorQueue.send(count)     [1,2,3...] every 1s
-Consumer Task    → sensorQueue.receive()       Prints received data
-RTOS Scheduler → Preemptive multitasking
-```
+- Modular architecture for extensible development
+- Abstracted sensor and actuator interfaces
+- Real-time task scheduling using RTOS facilities
+- Support for event-driven and periodic control loops
+- Thread-safe data handling and inter-task communication
+- Example implementations for common embedded use cases
 
-**Sample Output:**
-```
-Starting RTOS Simulation...
-[Producer] Sending: 1
-	[Consumer] Received: 1
-[Producer] Sending: 2
-	[Consumer] Received: 2
-... (runs forever)
+## Requirements
+
+- C++17 or later compiler
+- Supported RTOS (e.g., FreeRTOS or similar)
+- Target hardware platform with RTOS support (e.g., ARM Cortex-M series)
+- CMake (for building the project)
+- Basic development tools (make, cmake, g++, etc.)
+
+## Configuration
+
+Configuration is handled via CMake and source headers:
+
+- Set hardware-specific parameters (e.g., pin mappings, RTOS configuration) in relevant header files.
+- Enable or disable modules using CMake options.
+- Adjust control loop timing and priorities in the controller's source code.
+- Add or remove sensors/actuators by editing the application layer.
+
+**Example: Configuring a Control Loop Interval**
+```cpp
+constexpr uint32_t CONTROL_LOOP_INTERVAL_MS = 10; // Set loop interval to 10 ms
 ```
 
-## 🛠 Build & Run
+## Installation
 
-```bash
-mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j2
-timeout 10s ./rtos_demo    # Should see producer-consumer output
-```
+Follow these steps to build and install the RTOS C++ Controller:
 
-## 🔧 Technical Highlights
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/udayapeddirajub/rtos-cpp-controller.git
+   cd rtos-cpp-controller
+   ```
 
-1. **`Task.hpp`**: `xTaskCreate()` wrapped in C++ class + virtual `run()`
-2. **`Queue.hpp`**: Template wrapper for `xQueueCreate/Send/Receive`
-3. **Static `taskEntry()`**: Bridges C++ objects ↔ FreeRTOS C API
-4. **`vTaskStartScheduler()`**: RTOS kernel takes control (never returns)
-5. **Hooks**: Production-grade error handling (stack overflow, malloc fail)
+2. **Configure the Project**
+   ```bash
+   mkdir build
+   cd build
+   cmake ..
+   ```
 
-## 🌐 Real-World Use Cases
+3. **Build the Project**
+   ```bash
+   make
+   ```
 
-### **Industrial IoT**
-```
-SensorTask     → queue.send(sensor_data)     // ADC/I2C readings
-ProcessTask    → data = queue.receive()      // Filter/validate
-DisplayTask    → queue.send(display_cmd)     // LCD/OLED update
-```
+4. **Flash to Target Hardware**
+   - Use your RTOS/hardware toolchain to flash the compiled binaries to your device.
+   - Example (for ARM with OpenOCD):
+     ```bash
+     openocd -f board.cfg -c "program build/rtos_cpp_controller.elf verify reset exit"
+     ```
 
-### **Automotive (ADAS)**
-```
-CAN_Task       → queue.send(can_message)     // Vehicle CAN bus
-FusionTask     → data = queue.receive()      // Sensor fusion
-SafetyTask     → logQueue.send(event)        // Safety logging
-```
+5. **Customize for Application**
+   - Implement your custom logic by extending provided interfaces.
+   - Add initialization code for additional peripherals if needed.
 
-## 👨‍💻 Interview Talking Points
-```
-✅ RTOS Concepts: Tasks, Scheduling, IPC via Queues
-✅ C++ Modern: Inheritance, Templates, RAII
-✅ Production Ready: CMake, CI/CD, Error Handling
-✅ Scalable: Add tasks/queues easily
-✅ Portable: POSIX for CI, ARM Cortex for hardware
-```
+---
 
-## 📊 CI/CD Status
-![CI Badge Above] - Green = All tests pass automatically on push/PR
-
-## 🔗 Related Technologies
-- **FreeRTOS**: Industry standard RTOS
-- **CMake 3.10+**: Cross-platform build system
-- **GitHub Actions**: Ubuntu runner with timeout test
-- **POSIX**: Linux thread simulation for CI
+**Note:** Consult your hardware and RTOS documentation for platform-specific build and deployment steps. For detailed examples and advanced configuration, refer to the `examples` and `docs` directories in the repository.
